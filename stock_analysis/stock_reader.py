@@ -13,6 +13,7 @@ from .utils import label_sanitizer
 class StockReader:
     """Class for reading financial data from websites."""
 
+
     _index_tickers = {
         'S&P 500': '^GSPC', 'Dow Jones': '^DJI', 'NASDAQ': '^IXIC', # US
         'S&P/TSX Composite Index': '^GSPTSE', # Canada
@@ -33,6 +34,7 @@ class StockReader:
         'S&P/ASX 200': '^AXJO', # Australia
         'MOEX Russia Index': '^IMOEX.ME' # Russia
     } # to add more, consult https://finance.yahoo.com/world-indices/
+
 
     def __init__(self, start, end=None):
         """
@@ -57,10 +59,12 @@ class StockReader:
         if self.start >= self.end:
             raise ValueError('`start` must be before `end`')
 
+
     @property
     def available_tickers(self):
         """Access the names of the indices whose tickers are supported."""
         return list(self._index_tickers.keys())
+
 
     @classmethod
     def get_index_ticker(cls, index):
@@ -82,6 +86,7 @@ class StockReader:
         except AttributeError:
             raise ValueError('`index` must be a string')
         return cls._index_tickers.get(index, None)
+
 
     @label_sanitizer
     def get_ticker_data(self, ticker):
@@ -107,6 +112,7 @@ class StockReader:
                 ticker, start, end + dt.timedelta(days=1),
                 progress=False, ignore_tz=True
             )
+
 
     def get_index_data(self, index):
         """
